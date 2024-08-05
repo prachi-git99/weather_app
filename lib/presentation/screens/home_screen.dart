@@ -36,10 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
         longitude: location.longitude!,
       ));
     } catch (e) {
-      weatherBloc.add(FetchWeather(
-          cityName:
-              'London')); // Fallback to a default city in case of an error
+      weatherBloc.add(const FetchWeather(cityName: 'Delhi'));
     }
+  }
+
+  void fetchWeatherByCityName(String cityName) {
+    weatherBloc.add(FetchWeather(cityName: cityName));
   }
 
   @override
@@ -51,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
             if (state is WeatherInitial || state is WeatherLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is WeatherLoaded) {
               return _buildWeatherInfo(state.weather);
             } else if (state is WeatherError) {
@@ -69,45 +71,46 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Stack(
         children: [
           Align(
-            alignment: AlignmentDirectional(3, -0.3),
+            alignment: const AlignmentDirectional(3, -0.3),
             child: Container(
               height: 300,
               width: 300,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.deepPurple,
+                color: gradientColor1,
               ),
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(-3, -0.3),
+            alignment: const AlignmentDirectional(-3, -0.3),
             child: Container(
               height: 300,
               width: 300,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xFF673AB7),
+                color: gradientColor2,
               ),
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(0, -1.2),
+            alignment: const AlignmentDirectional(0, -1.2),
             child: Container(
               height: 300,
               width: 600,
-              decoration: BoxDecoration(
-                color: Color(0xFFFFAB40),
+              decoration: const BoxDecoration(
+                color: gradientColor3,
               ),
             ),
           ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
             child: Container(
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: const BoxDecoration(color: Colors.transparent),
             ),
           ),
           SingleChildScrollView(
-              child: displayDetailsWidget(context: context, weather: weather))
+              child: displayDetailsWidget(
+                  context: context, weather: weather, weatherBloc: weatherBloc))
         ],
       ),
     );

@@ -10,6 +10,7 @@ import '../../widgets/form_widgets/custom_textfield.dart';
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   LoginScreen({super.key});
 
@@ -23,7 +24,12 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              const SnackBar(
+                  backgroundColor: Colors.deepPurple,
+                  content: Text(
+                    "Something went wrong! Please enter valid details",
+                    style: TextStyle(color: white),
+                  )),
             );
           } else if (state is AuthAuthenticated) {
             Navigator.pushReplacementNamed(context, '/');
@@ -31,54 +37,78 @@ class LoginScreen extends StatelessWidget {
         },
         child: Padding(
           padding: const EdgeInsets.all(appAllPadding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/world_map_bg.png"),
-              mediumVerticalSizedBox(),
-              const Text("Login to your Account",
-                  style: TextStyle(
-                      color: white,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: poppins,
-                      fontSize: extraLargeFont)),
-              largeVerticalSizedBox(),
-              customTextField(
-                  controller: _emailController,
-                  hintText: emailHintText,
-                  obscureText: false,
-                  keyBoardType: TextInputType.emailAddress),
-              smallVerticalSizedBox(),
-              customTextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  hintText: passwordHintText,
-                  keyBoardType: TextInputType.text),
-              smallVerticalSizedBox(),
-              SizedBox(
-                width: size.width,
-                child: FilledButton(
-                    onPressed: () {
-                      BlocProvider.of<AuthBloc>(context).add(
-                        AuthLoggedIn(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        ),
-                      );
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/world_map_bg.png"),
+                mediumVerticalSizedBox(),
+                const Text("Login to your Account",
+                    style: TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: poppins,
+                        fontSize: extraLargeFont)),
+                largeVerticalSizedBox(),
+                customTextField(
+                    controller: _emailController,
+                    hintText: emailHintText,
+                    obscureText: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
                     },
-                    child: const Text(loginBtnText,
-                        style: TextStyle(color: white, fontFamily: poppins))),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/register');
-                },
-                child: const Text(
-                  needToRegisterBtnText,
-                  style: TextStyle(color: white, fontFamily: poppins),
+                    keyBoardType: TextInputType.emailAddress),
+                smallVerticalSizedBox(),
+                customTextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    hintText: passwordHintText,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      return null;
+                    },
+                    keyBoardType: TextInputType.text),
+                smallVerticalSizedBox(),
+                SizedBox(
+                  width: size.width,
+                  child: FilledButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          BlocProvider.of<AuthBloc>(context).add(
+                            AuthLoggedIn(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text(loginBtnText,
+                          style: TextStyle(color: white, fontFamily: poppins))),
                 ),
-              ),
-            ],
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/register');
+                  },
+                  child: const Text(
+                    needToRegisterBtnText,
+                    style: TextStyle(color: white, fontFamily: poppins),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

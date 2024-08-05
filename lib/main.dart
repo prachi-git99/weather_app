@@ -65,7 +65,7 @@ class _SplashToAuthState extends State<SplashToAuth> {
         } else if (state is AuthUnauthenticated) {
           return LoginScreen();
         } else if (state is AuthLoading || state is AuthInitial) {
-          return LoadingScreen();
+          return const LoadingScreen();
         } else if (state is AuthFailure) {
           return Scaffold(
               body: Center(
@@ -78,59 +78,3 @@ class _SplashToAuthState extends State<SplashToAuth> {
     );
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Firebase Auth with BLoC',
-//       home: BlocProvider(
-//         create: (context) => AuthBloc()..add(AuthStarted()),
-//         child: SplashToAuth(),
-//       ),
-//     );
-//   }
-// }
-//
-// class SplashToAuth extends StatefulWidget {
-//   @override
-//   _SplashToAuthState createState() => _SplashToAuthState();
-// }
-//
-// class _SplashToAuthState extends State<SplashToAuth> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     Future.delayed(Duration(seconds: 2), () {
-//       BlocProvider.of<AuthBloc>(context).add(AuthStarted());
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SplashListener();
-//   }
-// }
-//
-// class SplashListener extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<AuthBloc, AuthState>(
-//       builder: (context, state) {
-//         if (state is AuthAuthenticated) {
-//           return HomeScreen();
-//         } else if (state is AuthUnauthenticated) {
-//           return LoginScreen();
-//         } else if (state is AuthLoading || state is AuthInitial) {
-//           return SplashScreen(); // Show splash screen during loading or initial state
-//         } else if (state is AuthFailure) {
-//           return Scaffold(
-//               body: Center(
-//                   child: Text('Authentication Failure: ${state.error}')));
-//         } else {
-//           return Scaffold(body: Center(child: CircularProgressIndicator()));
-//         }
-//       },
-//     );
-//   }
-// }

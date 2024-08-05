@@ -11,6 +11,7 @@ Widget getWeatherIcon(String code, var size) {
     "Clear": "assets/images/sunny.png",
     "Few Clouds": "assets/images/cloudy.png",
     "Scattered Clouds": "assets/images/cloudy.png",
+    "Clouds": "assets/images/cloudy.png",
   };
 
   String defaultIconPath = "assets/images/clear.png";
