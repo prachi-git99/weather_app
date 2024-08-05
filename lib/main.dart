@@ -61,7 +61,7 @@ class _SplashToAuthState extends State<SplashToAuth> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is AuthAuthenticated) {
-          return const HomeScreen();
+          return HomeScreen();
         } else if (state is AuthUnauthenticated) {
           return LoginScreen();
         } else if (state is AuthLoading || state is AuthInitial) {
