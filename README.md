@@ -23,5 +23,6 @@ Flutter 3.16.5 • Dart 3.2.3
 7. Allow the user to enter a location or select a location from a predefined list to view the
    weather.
 
+![WhatsApp Image 2024-08-05 at 11 50 05 PM](https://github.com/user-attachments/assets/18990c86-7eee-4240-a6d9-21cbfc8bb15e)
 
 ![WhatsApp Image 2024-08-05 at 11 50 05 PM](https://github.com/user-attachments/assets/18990c86-7eee-4240-a6d9-21cbfc8bb15e)
