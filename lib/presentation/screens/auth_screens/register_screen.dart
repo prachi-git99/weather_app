@@ -26,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.deepPurple,
                 content: Text(
-                  state.error,
+                  state.error.toString(),
                   style: TextStyle(color: white),
                 )));
           } else if (state is AuthAuthenticated) {
