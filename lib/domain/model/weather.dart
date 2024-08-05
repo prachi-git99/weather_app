@@ -3,20 +3,36 @@ class Weather {
   final double temperature;
   final int humidity;
   final double windSpeed;
+  final String description;
+  final double minTemp; // New field for minimum temperature
+  final double maxTemp; // New field for maximum temperature
+  final DateTime sunrise; // New field for sunrise
+  final DateTime sunset; // New field for sunset
 
   Weather({
     required this.cityName,
     required this.temperature,
     required this.humidity,
     required this.windSpeed,
+    required this.description,
+    required this.minTemp, // Initialize new field
+    required this.maxTemp, // Initialize new field
+    required this.sunrise, // Initialize new field
+    required this.sunset, // Initialize new field
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
       cityName: json['name'],
-      temperature: json['main']['temp'],
+      temperature: json['main']['temp'].toDouble(),
       humidity: json['main']['humidity'],
-      windSpeed: json['wind']['speed'],
+      windSpeed: json['wind']['speed'].toDouble(),
+      description: json['weather'][0]['main'],
+      minTemp: json['main']['temp_min'].toDouble(),
+      maxTemp: json['main']['temp_max'].toDouble(),
+      sunrise:
+          DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise'] * 1000),
+      sunset: DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset'] * 1000),
     );
   }
 
@@ -26,9 +42,18 @@ class Weather {
       'main': {
         'temp': temperature,
         'humidity': humidity,
+        'temp_min': minTemp,
+        'temp_max': maxTemp,
       },
       'wind': {
         'speed': windSpeed,
+      },
+      'weather': [
+        {'main': description}
+      ],
+      'sys': {
+        'sunrise': sunrise.millisecondsSinceEpoch ~/ 1000,
+        'sunset': sunset.millisecondsSinceEpoch ~/ 1000,
       },
     };
   }

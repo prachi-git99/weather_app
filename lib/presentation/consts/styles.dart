@@ -5,6 +5,7 @@ const smallFont = 14.0;
 const mediumFont = 16.0;
 const largeFont = 20.0;
 const extraLargeFont = 22.0;
+const largestFont = 50.0;
 
 const smallBorderRadius = 8.0;
 const mediumBorderRadius = 30.0;

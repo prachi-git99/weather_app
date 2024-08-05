@@ -11,9 +11,6 @@ class WeatherRepository {
     final response = await http.get(Uri.parse(
         'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric'));
 
-    print("ppppppp..");
-    print(response.body);
-
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
     } else {

@@ -10,3 +10,4 @@ const loginBtnText = "Login";
 const registerBtnText = "Register";
 const needToRegisterBtnText = "Don\'t have an account? Register";
 const needToLoginBtnText = "Already have an account? Login";
+const signOutText = "Sign Out";
