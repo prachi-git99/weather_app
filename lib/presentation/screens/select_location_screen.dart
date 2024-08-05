@@ -14,12 +14,19 @@ class SearchCityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: black,
+      appBar: AppBar(
+        backgroundColor: black,
+        iconTheme: IconThemeData(color: white),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(appAllPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/world_map_bg.png"),
+            Image.asset(
+              "assets/images/world_map_bg.png",
+              color: white,
+            ),
             mediumVerticalSizedBox(),
             const Text("Enter City Name",
                 style: TextStyle(
@@ -39,7 +46,11 @@ class SearchCityScreen extends StatelessWidget {
                   return null;
                 },
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(
+                    Icons.search,
+                    color: white,
+                    size: 30,
+                  ),
                   onPressed: () {
                     if (_cityController.text.isNotEmpty) {
                       weatherBloc

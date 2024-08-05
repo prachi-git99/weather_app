@@ -110,7 +110,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SingleChildScrollView(
               child: displayDetailsWidget(
-                  context: context, weather: weather, weatherBloc: weatherBloc))
+                  context: context,
+                  weather: weather,
+                  weatherBloc: weatherBloc,
+                  locationService: locationService))
         ],
       ),
     );
