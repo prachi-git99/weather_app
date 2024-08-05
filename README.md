@@ -6,7 +6,7 @@ Flutter 3.16.5 • Dart 3.2.3
 ## Steps to run project
 1. Clone the repo
 2. Check for Flutter and Dart version
-3. Add .env file and add your Weather api key from [Open Weather Api](https://openweathermap.org/api) in this variable WEATHER_MAP_API_KEY
+3. Add lib/env.dart file and add your Weather api key from [Open Weather Api](https://openweathermap.org/api) in this variable WEATHER_MAP_API_KEY
 4. Connect with emulator
 5. Run command on terminal: 1. Flutter clean 2. Flutter pub get 3. Flutter run
 
@@ -24,3 +24,4 @@ Flutter 3.16.5 • Dart 3.2.3
    weather.
 
 
+![WhatsApp Image 2024-08-05 at 11 50 05 PM](https://github.com/user-attachments/assets/18990c86-7eee-4240-a6d9-21cbfc8bb15e)
