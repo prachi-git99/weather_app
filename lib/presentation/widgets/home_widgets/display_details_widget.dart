@@ -69,9 +69,6 @@ Widget displayDetailsWidget(
                         SearchCityScreen(weatherBloc: weatherBloc),
                   ),
                 );
-                // if (cityName != null) {
-                //   weatherBloc.add(FetchWeather(cityName: cityName));
-                // }
               },
             ),
           ],

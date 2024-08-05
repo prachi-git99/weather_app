@@ -62,14 +62,6 @@ class SearchCityScreen extends StatelessWidget {
                 keyBoardType: TextInputType.text),
             mediumVerticalSizedBox(),
 
-            // FilledButton(
-            //   onPressed: () {
-            //     Navigator.pop(context, _cityController.text);
-            //   },
-            //   child: const Text('Get Weather',
-            //       style: TextStyle(
-            //           color: white, fontFamily: poppins, fontSize: mediumFont)),
-            // ),
           ],
         ),
       ),

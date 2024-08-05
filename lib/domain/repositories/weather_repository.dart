@@ -10,7 +10,6 @@ class WeatherRepository {
   Future<Weather> fetchWeather(String cityName) async {
     print(cityName);
     final response = await http.get(Uri.parse(
-        // "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=10&appid=$apiKey"
         'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric'));
     print(response.body);
 
