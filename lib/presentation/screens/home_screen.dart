@@ -8,6 +8,7 @@ import '../../application/blocs/weather/weather_bloc.dart';
 import '../../application/blocs/weather/weather_event.dart';
 import '../../application/blocs/weather/weather_state.dart';
 import '../../domain/model/weather.dart';
+import '../../domain/repositories/get_all_cities.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/services/location_service.dart';
 
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final WeatherRepository weatherRepository = WeatherRepository();
   final LocationService locationService = LocationService();
   late WeatherBloc weatherBloc;
+  final getAllCities = GetAllCities();
 
   @override
   void initState() {
@@ -113,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   context: context,
                   weather: weather,
                   weatherBloc: weatherBloc,
-                  locationService: locationService))
+                  locationService: locationService,
+                  getAllCities: getAllCities))
         ],
       ),
     );

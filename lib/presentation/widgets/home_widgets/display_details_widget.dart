@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_weather_app/domain/model/weather.dart';
+import 'package:my_weather_app/domain/repositories/get_all_cities.dart';
 import 'package:my_weather_app/domain/services/location_service.dart';
 
 import '../../../application/blocs/auth_bloc/auth_bloc.dart';
@@ -16,6 +17,7 @@ import 'getWeatherIcon.dart';
 Widget displayDetailsWidget(
     {required BuildContext context,
     required Weather weather,
+    required GetAllCities getAllCities,
     required LocationService locationService,
     required WeatherBloc weatherBloc}) {
   final DateFormat formatter = DateFormat('hh:mm a');
@@ -38,26 +40,31 @@ Widget displayDetailsWidget(
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-                onPressed: () async {
-                  final location = await locationService.getLocation();
-                  weatherBloc.add(FetchWeatherByLocation(
-                    latitude: location.latitude!,
-                    longitude: location.longitude!,
-                  ));
-                },
-                icon: Icon(
-                  Icons.my_location_sharp,
-                  size: 30,
-                  color: Colors.redAccent,
-                )),
-            Text(
-              '${weather.cityName}',
-              style: const TextStyle(
-                  color: white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: mediumFont),
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () async {
+                      final location = await locationService.getLocation();
+                      weatherBloc.add(FetchWeatherByLocation(
+                        latitude: location.latitude!,
+                        longitude: location.longitude!,
+                      ));
+                    },
+                    icon: const Icon(
+                      Icons.my_location_sharp,
+                      size: 30,
+                      color: white,
+                    )),
+                Text(
+                  '${weather.cityName}, ${weather.country}',
+                  style: const TextStyle(
+                      color: white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: mediumFont),
+                ),
+              ],
             ),
             IconButton(
               icon: const Icon(Icons.search, color: white),
@@ -65,8 +72,8 @@ Widget displayDetailsWidget(
                 final cityName = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        SearchCityScreen(weatherBloc: weatherBloc),
+                    builder: (context) => SearchCityScreen(
+                        weatherBloc: weatherBloc, getAllCities: getAllCities),
                   ),
                 );
               },

@@ -4,6 +4,7 @@ class Weather {
   final int humidity;
   final double windSpeed;
   final String description;
+  final String country;
   final double minTemp; // New field for minimum temperature
   final double maxTemp; // New field for maximum temperature
   final DateTime sunrise; // New field for sunrise
@@ -13,6 +14,7 @@ class Weather {
     required this.cityName,
     required this.temperature,
     required this.humidity,
+    required this.country,
     required this.windSpeed,
     required this.description,
     required this.minTemp, // Initialize new field
@@ -30,6 +32,7 @@ class Weather {
       description: json['weather'][0]['main'],
       minTemp: json['main']['temp_min'].toDouble(),
       maxTemp: json['main']['temp_max'].toDouble(),
+      country: json['sys']['country'],
       sunrise:
           DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise'] * 1000),
       sunset: DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset'] * 1000),
@@ -52,6 +55,7 @@ class Weather {
         {'main': description}
       ],
       'sys': {
+        'country': country,
         'sunrise': sunrise.millisecondsSinceEpoch ~/ 1000,
         'sunset': sunset.millisecondsSinceEpoch ~/ 1000,
       },
