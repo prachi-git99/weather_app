@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state is WeatherLoaded) {
               return _buildWeatherInfo(state.weather);
             } else if (state is WeatherError) {
-              return Center(child: Text(state.message));
+              return Center(child: Text(state.message,style: TextStyle(color: white),));
             }
             return Container();
           },

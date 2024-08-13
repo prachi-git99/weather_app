@@ -27,87 +27,95 @@ class LoginScreen extends StatelessWidget {
               const SnackBar(
                   backgroundColor: Colors.deepPurple,
                   content: Text(
-                    "Something went wrong! Please enter valid details",
+                    "Invalid Credentials, Please check email or password",
                     style: TextStyle(color: white),
-                  )),
+                  ))
             );
+            // Future.delayed(Duration(seconds: 2), () {
+            //   Navigator.pushReplacementNamed(context, '/');
+            // });
+
           } else if (state is AuthAuthenticated) {
             Navigator.pushReplacementNamed(context, '/');
           }
         },
-        child: Padding(
-          padding: const EdgeInsets.all(appAllPadding),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/world_map_bg.png"),
-                mediumVerticalSizedBox(),
-                const Text("Login to your Account",
-                    style: TextStyle(
-                        color: white,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: poppins,
-                        fontSize: extraLargeFont)),
-                largeVerticalSizedBox(),
-                customTextField(
-                    controller: _emailController,
-                    hintText: emailHintText,
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                      if (!emailRegex.hasMatch(value)) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    },
-                    keyBoardType: TextInputType.emailAddress),
-                smallVerticalSizedBox(),
-                customTextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    hintText: passwordHintText,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters long';
-                      }
-                      return null;
-                    },
-                    keyBoardType: TextInputType.text),
-                smallVerticalSizedBox(),
-                SizedBox(
-                  width: size.width,
-                  child: FilledButton(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(appAllPadding),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/world_map_bg.png"),
+                    mediumVerticalSizedBox(),
+                    const Text("Login to your Account",
+                        style: TextStyle(
+                            color: white,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: poppins,
+                            fontSize: extraLargeFont)),
+                    largeVerticalSizedBox(),
+                    customTextField(
+                        controller: _emailController,
+                        hintText: emailHintText,
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                          if (!emailRegex.hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                        keyBoardType: TextInputType.emailAddress),
+                    smallVerticalSizedBox(),
+                    customTextField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        hintText: passwordHintText,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        },
+                        keyBoardType: TextInputType.text),
+                    smallVerticalSizedBox(),
+                    SizedBox(
+                      width: size.width,
+                      child: FilledButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              BlocProvider.of<AuthBloc>(context).add(
+                                AuthLoggedIn(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text(loginBtnText,
+                              style: TextStyle(color: white, fontFamily: poppins))),
+                    ),
+                    TextButton(
                       onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          BlocProvider.of<AuthBloc>(context).add(
-                            AuthLoggedIn(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ),
-                          );
-                        }
+                        Navigator.pushReplacementNamed(context, '/register');
                       },
-                      child: const Text(loginBtnText,
-                          style: TextStyle(color: white, fontFamily: poppins))),
+                      child: const Text(
+                        needToRegisterBtnText,
+                        style: TextStyle(color: white, fontFamily: poppins),
+                      ),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/register');
-                  },
-                  child: const Text(
-                    needToRegisterBtnText,
-                    style: TextStyle(color: white, fontFamily: poppins),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
