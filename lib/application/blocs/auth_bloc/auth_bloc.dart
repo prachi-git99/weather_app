@@ -37,6 +37,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  @override
+  void onChange(Change<AuthState> change) {
+    // TODO: implement onChange
+    super.onChange(change);
+    print(state);
+  }
+
   void _onAuthLoggedOut(AuthLoggedOut event, Emitter<AuthState> emit) async {
     await _firebaseAuth.signOut();
     emit(AuthUnauthenticated());

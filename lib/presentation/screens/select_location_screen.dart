@@ -35,7 +35,6 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
           cities = fetchedCities;
         });
       } catch (e) {
-        print("Error fetching cities: $e");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Error fetching cities. Please try again.'),

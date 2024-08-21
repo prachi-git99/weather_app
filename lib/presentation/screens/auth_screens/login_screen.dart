@@ -23,18 +23,15 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  backgroundColor: Colors.deepPurple,
-                  content: Text(
-                    "Invalid Credentials, Please check email or password",
-                    style: TextStyle(color: white),
-                  ))
-            );
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.white,
+                content: Text(
+                  "Invalid Credentials, Please check email or password",
+                  style: TextStyle(color: black),
+                )));
             // Future.delayed(Duration(seconds: 2), () {
             //   Navigator.pushReplacementNamed(context, '/');
             // });
-
           } else if (state is AuthAuthenticated) {
             Navigator.pushReplacementNamed(context, '/');
           }
@@ -65,7 +62,8 @@ class LoginScreen extends StatelessWidget {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                          final emailRegex =
+                              RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
                           if (!emailRegex.hasMatch(value)) {
                             return 'Please enter a valid email';
                           }
@@ -102,7 +100,8 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                           child: const Text(loginBtnText,
-                              style: TextStyle(color: white, fontFamily: poppins))),
+                              style: TextStyle(
+                                  color: white, fontFamily: poppins))),
                     ),
                     TextButton(
                       onPressed: () {

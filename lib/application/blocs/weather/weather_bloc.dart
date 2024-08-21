@@ -20,7 +20,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     emit(WeatherLoading());
     try {
       final weather = await weatherRepository.fetchWeather(event.cityName);
-      print(weather.cityName);
+
       await _saveWeatherToLocal(weather);
       emit(WeatherLoaded(weather: weather));
     } catch (e) {
@@ -31,6 +31,13 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         emit(WeatherError(message: e.toString()));
       }
     }
+  }
+
+  @override
+  void onChange(Change<WeatherState> change) {
+    // TODO: implement onChange
+    super.onChange(change);
+    print(state);
   }
 
   void _onFetchWeatherByLocation(

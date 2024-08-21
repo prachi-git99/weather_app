@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="my_weather_app"
+        android:label="Weather"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -29,5 +29,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_imp_channel" />
     </application>
 </manifest>

@@ -9,7 +9,10 @@ import 'package:my_weather_app/presentation/screens/loading_screen.dart';
 import 'application/blocs/auth_bloc/auth_bloc.dart';
 import 'application/blocs/auth_bloc/auth_event.dart';
 import 'application/blocs/auth_bloc/auth_state.dart';
+import 'domain/repositories/push_noti_firebase_api.dart';
 import 'firebase_options.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +20,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await PushNotiFirebase().initNotification();
 
   runApp(MyApp());
 }
@@ -34,6 +39,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => const SplashToAuth(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
+          '/home': (context) => HomeScreen(),
         },
       ),
     );
@@ -71,8 +77,7 @@ class _SplashToAuthState extends State<SplashToAuth> {
               body: Center(
                   child: Text('Authentication Failure: ${state.error}')));
         } else {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(body: Center(child: LoadingScreen()));
         }
       },
     );

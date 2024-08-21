@@ -9,7 +9,6 @@ class WeatherRepository {
   final String? apiKey = WEATHER_MAP_API_KEY;
 
   Future<Weather> fetchWeather(String cityName) async {
-    print(cityName);
     final response = await http.get(Uri.parse(
         'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric'));
 

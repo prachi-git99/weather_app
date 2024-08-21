@@ -11,6 +11,7 @@ import '../../domain/model/weather.dart';
 import '../../domain/repositories/get_all_cities.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/services/location_service.dart';
+import 'loading_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -55,11 +56,15 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
             if (state is WeatherInitial || state is WeatherLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: LoadingScreen());
             } else if (state is WeatherLoaded) {
               return _buildWeatherInfo(state.weather);
             } else if (state is WeatherError) {
-              return Center(child: Text(state.message,style: TextStyle(color: white),));
+              return Center(
+                  child: Text(
+                state.message,
+                style: TextStyle(color: white),
+              ));
             }
             return Container();
           },

@@ -9,4 +9,23 @@
             android:gravity="center"
             android:src="@mipmap/launch_image" />
     </item> -->
+    <item
+        android:top="16dp"
+        android:right="16dp"
+        android:bottom="16dp"
+        android:left="16dp">
+        <text
+            android:text="W E A T H E R"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </item>
+    <item>
+        <bitmap
+            android:src="@drawable/ic_launcher.png"
+            android:scaleType="fitXY"
+        android:gravity="center" />
+    </item>
 </layer-list>
